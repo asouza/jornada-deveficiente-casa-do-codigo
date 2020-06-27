@@ -4,12 +4,15 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.deveficiente.casadocodigov2.compartilhado.UniqueValue;
+
 public class NovoAutorRequest {
 
 	@NotBlank
 	private String nome;
 	@NotBlank
 	@Email
+	@UniqueValue(domainClass = Autor.class,fieldName = "email")
 	private String email;
 	@NotBlank
 	@Size(max = 400)
