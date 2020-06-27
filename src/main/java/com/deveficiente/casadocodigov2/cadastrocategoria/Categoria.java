@@ -13,6 +13,11 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private @NotBlank String nome;
+	
+	@Deprecated
+	public Categoria() {
+
+	}
 
 	public Categoria(@NotBlank String nome) {
 		this.nome = nome;
