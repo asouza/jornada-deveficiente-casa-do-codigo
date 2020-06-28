@@ -25,6 +25,10 @@ public class ExistsIdValidator implements ConstraintValidator<ExistsId, Long>{
 
 	@Override
 	public boolean isValid(Long value, ConstraintValidatorContext context) {
+		if(value == null) {
+			return true;
+		}
+		
 		Query query = manager.createQuery("select 1 from "+klass.getName()+" where "+domainAttribute+"=:value");
 		query.setParameter("value", value);	
 	
