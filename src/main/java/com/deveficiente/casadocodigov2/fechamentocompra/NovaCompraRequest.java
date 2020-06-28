@@ -1,5 +1,7 @@
 package com.deveficiente.casadocodigov2.fechamentocompra;
 
+import java.util.function.Function;
+
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -111,12 +113,16 @@ public class NovaCompraRequest {
 		@NotNull
 		Pais pais = manager.find(Pais.class, idPais);
 
+		Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(manager);
+		
 		Compra compra = new Compra(email, nome, sobrenome, documento, endereco,
-				complemento, pais, telefone, cep);
+				complemento, pais, telefone, cep,funcaoCriacaoPedido);
 		if (idEstado != null) {
 			compra.setEstado(manager.find(Estado.class, idEstado));
 		}
 
+		
+		
 		return compra;
 	}
 
