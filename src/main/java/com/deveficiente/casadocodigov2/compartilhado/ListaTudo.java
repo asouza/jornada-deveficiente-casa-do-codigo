@@ -25,6 +25,9 @@ public class ListaTudo {
 		List categorias = manager.createQuery("select c from Categoria c").getResultList();
 		resultado.put("categorias", categorias.toString());
 		
+		List cupons = manager.createQuery("select c from Cupom c").getResultList();
+		resultado.put("categorias", cupons.toString());
+		
 		return resultado;
 	}
 
