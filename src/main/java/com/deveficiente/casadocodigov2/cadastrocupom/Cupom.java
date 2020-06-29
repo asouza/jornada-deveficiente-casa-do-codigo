@@ -41,6 +41,18 @@ public class Cupom {
 				+ ", percentualDesconto=" + percentualDesconto + ", validade="
 				+ validade + "]";
 	}
+
+	public boolean valido() {
+		return LocalDate.now().compareTo(this.validade) <= 0;
+	}
+
+	public BigDecimal getPercentualDesconto() {
+		return percentualDesconto;
+	}
+	
+	public LocalDate getValidade() {
+		return validade;
+	}
 	
 	
 

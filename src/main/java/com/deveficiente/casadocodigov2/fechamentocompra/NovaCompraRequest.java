@@ -1,5 +1,6 @@
 package com.deveficiente.casadocodigov2.fechamentocompra;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -13,7 +14,9 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
+import com.deveficiente.casadocodigov2.cadastrocupom.Cupom;
 import com.deveficiente.casadocodigov2.compartilhado.ExistsId;
 import com.deveficiente.casadocodigov2.paisestado.Estado;
 import com.deveficiente.casadocodigov2.paisestado.Pais;
@@ -46,7 +49,10 @@ public class NovaCompraRequest {
 	private String cep;
 	@Valid
 	@NotNull
+	//1
 	private NovoPedidoRequest pedido;
+	@ExistsId(domainClass = Cupom.class,fieldName = "codigo")
+	private String codigoCupom;
 
 	public NovaCompraRequest(@Email @NotBlank String email,
 			@NotBlank String nome, @NotBlank String sobrenome,
@@ -67,6 +73,10 @@ public class NovaCompraRequest {
 		this.telefone = telefone;
 		this.cep = cep;
 		this.pedido = pedido;
+	}
+	
+	public void setCodigoCupom(String codigoCupom) {
+		this.codigoCupom = codigoCupom;
 	}
 
 	public NovoPedidoRequest getPedido() {
@@ -97,6 +107,7 @@ public class NovaCompraRequest {
 		CNPJValidator cnpjValidator = new CNPJValidator();
 		cnpjValidator.initialize(null);
 
+		//1
 		return cpfValidator.isValid(documento, null)
 				|| cnpjValidator.isValid(documento, null);
 	}
@@ -109,18 +120,30 @@ public class NovaCompraRequest {
 		return idEstado;
 	}
 
-	public Compra toModel(EntityManager manager) {
+	//1
+	public Compra toModel(EntityManager manager,CupomRepository cupomRepository) {
 		@NotNull
+		//1
 		Pais pais = manager.find(Pais.class, idPais);
 
+		//1
+		//1
 		Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(manager);
 		
+		//1 funcao como argumento
 		Compra compra = new Compra(email, nome, sobrenome, documento, endereco,
 				complemento, pais, telefone, cep,funcaoCriacaoPedido);
+		//1
 		if (idEstado != null) {
 			compra.setEstado(manager.find(Estado.class, idEstado));
 		}
-
+		
+		//1
+		if(StringUtils.hasText(codigoCupom)) {
+			Cupom cupom = cupomRepository.getByCodigo(codigoCupom);
+			compra.aplicaCupom(cupom);
+		}
+		
 		
 		
 		return compra;
@@ -128,6 +151,10 @@ public class NovaCompraRequest {
 
 	public boolean temEstado() {
 		return idEstado != null;
+	}
+
+	public Optional<String> getCodigoCupom() {
+		return Optional.ofNullable(codigoCupom);
 	}
 
 }
