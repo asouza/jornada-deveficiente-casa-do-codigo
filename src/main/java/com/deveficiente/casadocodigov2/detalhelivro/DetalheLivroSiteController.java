@@ -1,12 +1,16 @@
 package com.deveficiente.casadocodigov2.detalhelivro;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.deveficiente.casadocodigov2.cadastrolivro.Livro;
 
@@ -19,21 +23,16 @@ public class DetalheLivroSiteController {
 	private EntityManager manager;
 
 	@GetMapping(value = "/produtos/{id}")
-	public ResponseEntity<?> detalhe(@PathVariable("id") Long id) {
-		
-		//1
-		Livro livroBuscado = manager.find(Livro.class, id);
-		// o find retorna nulo, aí eu não posso fazer nada. Tenho que verificar
-		// nulo
-		//1
-		if (livroBuscado == null) {
-			return ResponseEntity.notFound().build();
-		}
+	public DetalheSiteLivroResponse detalhe(@PathVariable("id") Long id) {
 
-		//1
+		// 1
+		Livro livroBuscado = Optional.ofNullable(manager.find(Livro.class, id))
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+		// 1
 		DetalheSiteLivroResponse detalheSiteLivroResponse = new DetalheSiteLivroResponse(
 				livroBuscado);
-		return ResponseEntity.ok(detalheSiteLivroResponse);
+		return detalheSiteLivroResponse;
 	}
 
 }
