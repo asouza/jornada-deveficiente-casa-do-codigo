@@ -1,5 +1,7 @@
 package com.deveficiente.casadocodigov2.fechamentocompra;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -9,6 +11,8 @@ import javax.persistence.EntityManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mockito;
 
 import com.deveficiente.casadocodigov2.cadastrocategoria.Categoria;
@@ -91,5 +95,23 @@ public class NovaCompraRequestTest {
 		Mockito.verify(manager,Mockito.never()).find(Mockito.eq(Estado.class), Mockito.anyLong());
 		Mockito.verify(cupomRepository,Mockito.never()).getByCodigo(Mockito.anyString());
 		
+	}
+	
+	/*
+	 * cpf true cnpj false
+	 * cpf false cnpj true
+	 * cpf false e cnpj false
+	 */
+	@ParameterizedTest
+	@DisplayName("verifica documento válido")
+	@CsvSource({
+		"79744157038,true","43134638000128,true","987453895349,false"
+	})
+	void teste4(String documento,boolean resultadoEsperado) throws Exception {
+		NovaCompraRequest request = new NovaCompraRequest("email@email.com",
+				"Alberto", "Souza", documento, "endereco", "complemento",
+				"salvador", 1l, "999999999", "400000", pedido);
+		
+		Assertions.assertEquals(resultadoEsperado, request.documentoValido());
 	}
 }
