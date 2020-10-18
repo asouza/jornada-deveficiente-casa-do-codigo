@@ -58,7 +58,7 @@ public class NovaCompraRequest {
 			@NotBlank String nome, @NotBlank String sobrenome,
 			@NotBlank String documento, @NotBlank String endereco,
 			@NotBlank String complemento, @NotBlank String cidade,
-			@NotNull Long idPais, Long idEstado, @NotBlank String telefone,
+			@NotNull Long idPais, @NotBlank String telefone,
 			@NotBlank String cep, @Valid @NotNull NovoPedidoRequest pedido) {
 		super();
 		this.email = email;
@@ -69,10 +69,13 @@ public class NovaCompraRequest {
 		this.complemento = complemento;
 		this.cidade = cidade;
 		this.idPais = idPais;
-		this.idEstado = idEstado;
 		this.telefone = telefone;
 		this.cep = cep;
 		this.pedido = pedido;
+	}
+	
+	public void setIdEstado(Long idEstado) {
+		this.idEstado = idEstado;
 	}
 	
 	public void setCodigoCupom(String codigoCupom) {
@@ -107,7 +110,6 @@ public class NovaCompraRequest {
 		CNPJValidator cnpjValidator = new CNPJValidator();
 		cnpjValidator.initialize(null);
 
-		//1
 		return cpfValidator.isValid(documento, null)
 				|| cnpjValidator.isValid(documento, null);
 	}
