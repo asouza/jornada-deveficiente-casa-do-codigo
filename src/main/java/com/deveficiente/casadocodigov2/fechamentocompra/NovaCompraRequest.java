@@ -152,7 +152,7 @@ public class NovaCompraRequest {
 	}
 
 	public boolean temEstado() {
-		return idEstado != null;
+		return Optional.ofNullable(idEstado).isPresent();
 	}
 
 	public Optional<String> getCodigoCupom() {

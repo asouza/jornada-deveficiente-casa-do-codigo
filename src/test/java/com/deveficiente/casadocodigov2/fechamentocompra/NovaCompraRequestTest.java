@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
