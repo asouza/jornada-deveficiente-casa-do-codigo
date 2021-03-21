@@ -3,6 +3,7 @@ package com.deveficiente.casadocodigov2.fechamentocompra;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.function.Function;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ import org.mockito.Mockito;
 import com.deveficiente.casadocodigov2.cadastrocategoria.Categoria;
 import com.deveficiente.casadocodigov2.cadastrolivro.Livro;
 import com.deveficiente.casadocodigov2.novoautor.Autor;
+import com.deveficiente.casadocodigov2.paisestado.Pais;
 
 public class PedidoTest {
 
@@ -32,8 +34,16 @@ public class PedidoTest {
 		Categoria categoria = new Categoria("categoria");
 		Livro livro = new Livro("titulo", "resumo", "sumario", BigDecimal.TEN, 100, "98754985743", LocalDate.of(2000, 10, 10), autor, categoria);
 		Set<ItemPedido> itens = Set.of(new ItemPedido(livro, 1));
-		Pedido pedido = new Pedido(Mockito.mock(Compra.class), itens);
-
+		
+		Pais pais = new Pais("brasil");
+		Function<Compra, Pedido> funcaoCriaPedido = compra -> {
+			return new Pedido(compra, itens);			
+		};
+		
+		Compra compra = new Compra("email@email", "nome", "sobrenome", "58495784", "endereco", "complemento", pais, "7654965437", "89567453", funcaoCriaPedido);
+		
+		Pedido pedido = funcaoCriaPedido.apply(compra);
+		
 		Assertions.assertEquals(resultadoEsperado, pedido.totalIgual(valor));
 	}
 }

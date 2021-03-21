@@ -1,7 +1,5 @@
 package com.deveficiente.casadocodigov2.fechamentocompra;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;

@@ -2,6 +2,7 @@ package com.deveficiente.casadocodigov2.cadastrolivro;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.Future;
@@ -77,31 +78,11 @@ public class NovoLivroRequest {
 		@NotNull Autor autor = manager.find(Autor.class, idAutor);
 		@NotNull Categoria categoria = manager.find(Categoria.class, idCategoria);
 		
-		Assert.state(autor!=null,"Você esta querendo cadastrar um livro para um autor que nao existe no banco "+idAutor);
-		Assert.state(categoria!=null,"Você esta querendo cadastrar um livro para uma categoria que nao existe no banco "+idCategoria);
+		Assert.state(Objects.nonNull(autor),"Você esta querendo cadastrar um livro para um autor que nao existe no banco "+idAutor);
+		Assert.state(Objects.nonNull(categoria),"Você esta querendo cadastrar um livro para uma categoria que nao existe no banco "+idCategoria);
 		
 		return new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn,
 				dataPublicacao, autor, categoria);
 	}
 
 }
-
-/*
- * ###necessidades
- * 
- * Um título Um resumo do que vai ser encontrado no livro Um sumário de tamanho
- * livre. O texto deve entrar no formato markdown, que é uma string. Dessa forma
- * ele pode ser formatado depois da maneira apropriada. Preço do livro Número de
- * páginas Isbn(identificador do livro) Data que ele deve entrar no ar(de
- * publicação) Um livro pertence a uma categoria Um livro é de um autor
- * 
- * ###restrições
- * 
- * Título é obrigatório Título é único Resumo é obrigatório e tem no máximo 500
- * caracteres Sumário é de tamanho livre. Preço é obrigatório e o mínimo é de 20
- * Número de páginas é obrigatória e o mínimo é de 100 Isb é obrigatório,
- * formato livre Isbn é único Data que vai entrar no ar precisa ser no futuro A
- * categoria não pode ser nula O autor não pode ser nulo
- * 
- * ###resultado esperado Um novo livro precisa ser criado
- */
