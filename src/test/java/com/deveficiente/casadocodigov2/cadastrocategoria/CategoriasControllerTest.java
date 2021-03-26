@@ -34,15 +34,14 @@ public class CategoriasControllerTest {
 	private CustomMockMvc mvc;
 
 	@Property(tries = 10)
-	@Label("fluxo de cadastro de novo autor")
-	void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String nome,
-			@ForAll @AlphaChars @StringLength(min = 1, max = 50) String email,
-			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String descricao) throws Exception {
+	@Label("fluxo de cadastro de nova categoria")
+	void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String nome) throws Exception {
 		
-		Assumptions.assumeTrue(nomesGerados.add(email));
+		Assumptions.assumeTrue(nomesGerados.add(nome));
 		
 		mvc.post("/categorias",Map.of("nome",nome))
 			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		
 		mvc.post("/categorias",Map.of("nome",nome))
 		.andExpect(MockMvcResultMatchers.status().is4xxClientError());
 	}	
