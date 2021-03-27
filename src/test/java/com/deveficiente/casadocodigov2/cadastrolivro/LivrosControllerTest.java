@@ -68,6 +68,17 @@ public class LivrosControllerTest {
 				"idCategoria","1",
 				"idAutor","1"))
 			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		
+		mvc.post("/livros",Map.of("titulo",titulo,
+				"resumo",resumo,
+				"sumario",sumario,
+				"preco",preco.toString(),
+				"numeroPaginas",String.valueOf(paginas),
+				"isbn",isbn,
+				"dataPublicacao",dataPublicacaoFormatada,
+				"idCategoria","1",
+				"idAutor","1"))
+		.andExpect(MockMvcResultMatchers.status().is4xxClientError());
 	}
 	
 	@Provide
