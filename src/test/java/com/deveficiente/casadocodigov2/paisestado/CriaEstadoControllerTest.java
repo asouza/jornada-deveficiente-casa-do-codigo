@@ -1,4 +1,4 @@
-package com.deveficiente.casadocodigov2.novoautor;
+package com.deveficiente.casadocodigov2.paisestado;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.deveficiente.casadocodigov2.compartilhado.CustomMockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.jqwik.api.ForAll;
@@ -26,37 +27,22 @@ import net.jqwik.spring.JqwikSpringSupport;
 @JqwikSpringSupport
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AutoresControllerTest {
+public class CriaEstadoControllerTest {
 	
 	@Autowired
-	private MockMvc mvc;
-	private static Set<String> emailsGerados = new HashSet<>();
+	private CustomMockMvc mvc;
+	private static Set<String> unicos = new HashSet<>();
 
 	@Property(tries = 10)
-	@Label("fluxo de cadastro de novo autor")
-	void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String nome,
-			@ForAll @AlphaChars @StringLength(min = 1, max = 50) String email,
-			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String descricao) throws Exception {
+	@Label("fluxo de cadastro de novo pais")
+	void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String nome) throws Exception {
 		
-		Assumptions.assumeTrue(emailsGerados.add(email));
+		Assumptions.assumeTrue(unicos.add(nome));
 		
-		String payload = new ObjectMapper()
-				.writeValueAsString(
-						Map.of("nome",nome,
-							   "email",email+"@gmail.com",
-							   "descricao",descricao));
-				
+		mvc.post("/paises", Map.of("nome",nome)).andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
 		
-		MockHttpServletRequestBuilder conteudo = MockMvcRequestBuilders.post("/autores")
-		.contentType(MediaType.APPLICATION_JSON_VALUE)
-		.content(payload);
-		mvc.perform(
-				conteudo)
-				.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
 		
-		mvc.perform(
-				conteudo)
-		.andExpect(MockMvcResultMatchers.status().is4xxClientError());
+		mvc.post("/paises", Map.of("nome",nome)).andExpect(MockMvcResultMatchers.status().is4xxClientError());
 	}
 	
 }
