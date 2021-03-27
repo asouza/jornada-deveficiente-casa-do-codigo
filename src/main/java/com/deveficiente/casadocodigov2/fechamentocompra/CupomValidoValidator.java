@@ -1,23 +1,25 @@
 package com.deveficiente.casadocodigov2.fechamentocompra;
 
+import java.util.Objects;
 import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.deveficiente.casadocodigov2.cadastrocupom.Cupom;
 
 @Component
-public class CupomValidoValidator implements Validator{
-	
-	@Autowired
+public class CupomValidoValidator implements Validator {
+
 	private CupomRepository cupomRepository;
-	
+
+	public CupomValidoValidator(CupomRepository cupomRepository) {
+		super();
+		this.cupomRepository = cupomRepository;
+	}
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -26,18 +28,20 @@ public class CupomValidoValidator implements Validator{
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		if(errors.hasErrors()) {
-			return ;
+		if (errors.hasErrors()) {
+			return;
 		}
-		
+
 		NovaCompraRequest request = (NovaCompraRequest) target;
 		Optional<String> possivelCodigo = request.getCodigoCupom();
-		if(possivelCodigo.isPresent()) {
+		if (possivelCodigo.isPresent()) {
 			Cupom cupom = cupomRepository.getByCodigo(possivelCodigo.get());
-			if(!cupom.valido()) {
-				errors.rejectValue("codigoCupom", null, "Este cupom não é mais válido");
+			Assert.state(Objects.nonNull(cupom),"O código do cupom precisa existir neste ponto da validacao");
+			if (!cupom.valido()) {
+				errors.rejectValue("codigoCupom", null,
+						"Este cupom não é mais válido");
 			}
-		}
+		} 
 	}
 
 }
