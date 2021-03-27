@@ -25,7 +25,7 @@ public class Pedido {
 	private Long id;
 	@OneToOne
 	private @NotNull @Valid Compra compra;
-	
+
 	@ElementCollection
 	private @Size(min = 1) Set<ItemPedido> itens = new HashSet<>();
 
@@ -37,18 +37,18 @@ public class Pedido {
 		this.itens.addAll(itens);
 	}
 
-	public boolean totalIgual(@Positive @NotNull BigDecimal total) {
-		BigDecimal totalPedido = itens.stream().map(ItemPedido::total).reduce(BigDecimal.ZERO,
-				(atual, proximo) -> atual.add(proximo));		
-		
-		return totalPedido.doubleValue() == total.doubleValue();
+	public boolean totalIgual(@Positive @NotNull BigDecimal valor) {
+		return total().setScale(2).equals(valor.setScale(2));
 	}
 
 	@Override
 	public String toString() {
 		return "Pedido [itens=" + itens + "]";
 	}
-	
-	
+
+	public BigDecimal total() {
+		return itens.stream().map(ItemPedido::total).reduce(BigDecimal.ZERO,
+				(atual, proximo) -> atual.add(proximo));
+	}
 
 }

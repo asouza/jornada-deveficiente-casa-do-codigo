@@ -45,8 +45,8 @@ public class NovoPedidoRequest {
 		Set<ItemPedido> itensCalculados = itens.stream().map(item -> item.toModel(manager)).collect(Collectors.toSet());
 		
 		return (compra) -> {
-			Pedido pedido = new Pedido(compra,itensCalculados);		
-			Assert.isTrue(pedido.totalIgual(total),"Olha, o total enviado não corresponde ao total real");
+			Pedido pedido = new Pedido(compra,itensCalculados);			
+			Assert.isTrue(pedido.totalIgual(total),"Olha, o total("+total+") enviado não corresponde ao total real("+pedido.total()+"). Itens = "+itensCalculados);
 			return pedido;			
 		};
 						

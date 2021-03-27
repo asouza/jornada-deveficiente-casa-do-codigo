@@ -18,7 +18,7 @@ public class CustomMockMvc {
 	@Autowired
 	private MockMvc mockMvc;
 
-	public ResultActions post(String url, Map<String, String> params) {
+	public ResultActions post(String url, Map<String, Object> params) {
 		try {
 			String payload = new ObjectMapper()
 					.writeValueAsString(params);

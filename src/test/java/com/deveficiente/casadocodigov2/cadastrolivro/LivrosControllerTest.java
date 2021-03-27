@@ -39,7 +39,7 @@ public class LivrosControllerTest {
 	
 	@Property(tries = 20)
 	@Label("fluxo de cadastro de novo livro")
-	void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String titulo,
+	public void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String titulo,
 			@ForAll @AlphaChars @StringLength(min = 1, max = 500) String resumo,
 			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String sumario,
 			@ForAll @BigRange(min = "20",max = "100") BigDecimal preco,

@@ -34,15 +34,19 @@ public class CriaEstadoControllerTest {
 	private static Set<String> unicos = new HashSet<>();
 
 	@Property(tries = 10)
-	@Label("fluxo de cadastro de novo pais")
-	void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String nome) throws Exception {
+	@Label("fluxo de cadastro de novo estado")
+	public void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String nome) throws Exception {
 		
 		Assumptions.assumeTrue(unicos.add(nome));
 		
-		mvc.post("/paises", Map.of("nome",nome)).andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		mvc.post("/paises", Map.of("nome","pais"));
 		
 		
-		mvc.post("/paises", Map.of("nome",nome)).andExpect(MockMvcResultMatchers.status().is4xxClientError());
+		mvc.post("/estados", Map.of("nome",nome,"idPais","1"))
+			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		
+		mvc.post("/estados", Map.of("nome",nome,"idPais","1"))
+		.andExpect(MockMvcResultMatchers.status().is4xxClientError());
 	}
 	
 }
