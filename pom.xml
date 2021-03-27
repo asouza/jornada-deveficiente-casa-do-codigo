@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>net.jqwik</groupId>
 			<artifactId>jqwik</artifactId>
-			<version>1.3.10</version>
+			<version>1.5.0</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -69,12 +69,20 @@
 			<version>0.7.0</version>
 			<scope>test</scope>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/net.jqwik/jqwik-time -->
+		<dependency>
+			<groupId>net.jqwik</groupId>
+			<artifactId>jqwik-time</artifactId>
+			<version>1.5.0</version>
+			<scope>test</scope>
+		</dependency>
+
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 	</dependencies>
 
 	<build>
