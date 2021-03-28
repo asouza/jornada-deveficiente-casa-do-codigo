@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -35,6 +37,7 @@ public class CriaEstadoControllerTest {
 
 	@Property(tries = 10)
 	@Label("fluxo de cadastro de novo estado")
+	@DirtiesContext(methodMode = MethodMode.BEFORE_METHOD)
 	public void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String nome) throws Exception {
 		
 		Assumptions.assumeTrue(unicos.add(nome));
