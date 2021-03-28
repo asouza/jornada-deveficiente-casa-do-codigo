@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.deveficiente.casadocodigov2.cadastrolivro.Livro;
+import com.deveficiente.casadocodigov2.compartilhado.Generated;
 
 @Embeddable
 public class ItemPedido {
@@ -39,6 +40,7 @@ public class ItemPedido {
 		return precoMomento.multiply(new BigDecimal(quantidade));
 	}
 
+	@Generated(Generated.ECLIPSE)
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -48,6 +50,7 @@ public class ItemPedido {
 	}
 
 	@Override
+	@Generated(Generated.ECLIPSE)
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

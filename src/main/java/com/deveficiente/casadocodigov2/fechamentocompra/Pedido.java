@@ -31,7 +31,7 @@ public class Pedido {
 
 	public Pedido(@NotNull @Valid Compra compra,
 			@Size(min = 1) Set<ItemPedido> itens) {
-		Assert.isTrue(!itens.isEmpty(),
+		Assert.isTrue(itens.iterator().hasNext(),
 				"todo pedido deve ter pelo menos um item");
 		this.compra = compra;
 		this.itens.addAll(itens);

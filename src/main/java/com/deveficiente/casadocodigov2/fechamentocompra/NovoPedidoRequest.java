@@ -15,6 +15,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.util.Assert;
 
+import com.deveficiente.casadocodigov2.compartilhado.Generated;
+
 public class NovoPedidoRequest {
 
 	@Positive
@@ -36,6 +38,7 @@ public class NovoPedidoRequest {
 	}
 
 	@Override
+	@Generated(Generated.ECLIPSE)
 	public String toString() {
 		return "NovoPedidoRequest [total=" + total + ", itens=" + itens + "]";
 	}

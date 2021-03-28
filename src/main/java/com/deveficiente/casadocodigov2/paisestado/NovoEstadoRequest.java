@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.deveficiente.casadocodigov2.compartilhado.ExistsId;
+import com.deveficiente.casadocodigov2.compartilhado.Generated;
 import com.deveficiente.casadocodigov2.compartilhado.UniqueValue;
 
 public class NovoEstadoRequest {
@@ -23,6 +24,7 @@ public class NovoEstadoRequest {
 	}
 
 	@Override
+	@Generated(Generated.ECLIPSE)
 	public String toString() {
 		return "NovoEstadoRequest [nome=" + nome + ", idPais=" + idPais + "]";
 	}

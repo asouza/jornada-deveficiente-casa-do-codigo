@@ -1,5 +1,6 @@
 package com.deveficiente.casadocodigov2.fechamentocompra;
 
+import java.lang.annotation.Documented;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -17,7 +18,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.deveficiente.casadocodigov2.cadastrocupom.Cupom;
+import com.deveficiente.casadocodigov2.compartilhado.Documento;
 import com.deveficiente.casadocodigov2.compartilhado.ExistsId;
+import com.deveficiente.casadocodigov2.compartilhado.Generated;
 import com.deveficiente.casadocodigov2.paisestado.Estado;
 import com.deveficiente.casadocodigov2.paisestado.Pais;
 
@@ -31,6 +34,7 @@ public class NovaCompraRequest {
 	@NotBlank
 	private String sobrenome;
 	@NotBlank
+	@Documento
 	private String documento;
 	@NotBlank
 	private String endereco;
@@ -91,6 +95,7 @@ public class NovaCompraRequest {
 	}
 
 	@Override
+	@Generated(Generated.ECLIPSE)
 	public String toString() {
 		return "NovaCompraRequest [email=" + email + ", nome=" + nome
 				+ ", sobrenome=" + sobrenome + ", documento=" + documento

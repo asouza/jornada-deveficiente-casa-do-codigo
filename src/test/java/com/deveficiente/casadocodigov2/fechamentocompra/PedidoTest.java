@@ -5,15 +5,10 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.function.Function;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.mockito.Mockito;
 
 import com.deveficiente.casadocodigov2.cadastrocategoria.Categoria;
 import com.deveficiente.casadocodigov2.cadastrolivro.Livro;

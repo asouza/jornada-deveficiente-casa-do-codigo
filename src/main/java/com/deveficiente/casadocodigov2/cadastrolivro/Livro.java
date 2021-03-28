@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.deveficiente.casadocodigov2.cadastrocategoria.Categoria;
+import com.deveficiente.casadocodigov2.compartilhado.Generated;
 import com.deveficiente.casadocodigov2.novoautor.Autor;
 
 @Entity
@@ -102,6 +103,7 @@ public class Livro {
 	}
 
 	@Override
+	@Generated(Generated.ECLIPSE)
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -110,6 +112,7 @@ public class Livro {
 	}
 
 	@Override
+	@Generated(Generated.ECLIPSE)
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

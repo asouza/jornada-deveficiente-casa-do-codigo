@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+import com.deveficiente.casadocodigov2.compartilhado.Generated;
+
 @Entity
 public class Pais {
 
@@ -30,6 +32,7 @@ public class Pais {
 	}
 
 	@Override
+	@Generated(Generated.ECLIPSE)
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -38,6 +41,7 @@ public class Pais {
 	}
 
 	@Override
+	@Generated(Generated.ECLIPSE)
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

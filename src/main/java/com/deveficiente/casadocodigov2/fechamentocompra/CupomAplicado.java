@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.deveficiente.casadocodigov2.cadastrocupom.Cupom;
+import com.deveficiente.casadocodigov2.compartilhado.Generated;
 
 @Embeddable
 public class CupomAplicado {
@@ -24,6 +25,7 @@ public class CupomAplicado {
 	private LocalDate validadeMomento;
 	
 	@Deprecated
+	@Generated(Generated.ECLIPSE)
 	public CupomAplicado() {
 
 	}
@@ -35,6 +37,7 @@ public class CupomAplicado {
 	}
 
 	@Override
+	@Generated(Generated.ECLIPSE)
 	public String toString() {
 		return "CupomAplicado [cupom=" + cupom + ", percentualDescontoMomento="
 				+ percentualDescontoMomento + ", validadeMomento="

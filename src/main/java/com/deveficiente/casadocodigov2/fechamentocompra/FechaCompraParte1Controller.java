@@ -27,7 +27,7 @@ public class FechaCompraParte1Controller {
 
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(new VerificaDocumentoCpfCnpjValidator(),estadoPertenceAPaisValidator,cupomValidoValidator);
+		binder.addValidators(estadoPertenceAPaisValidator,cupomValidoValidator);
 	}
 
 	@PostMapping(value = "/compras")
