@@ -21,7 +21,7 @@ public class DetalheSiteLivroResponse {
 		autor = new DetalheSiteAutorResponse(livro.getAutor());
 		isbn = livro.getIsbn();
 		numeroPaginas = livro.getNumeroPaginas();
-		preco = livro.getPreco();
+		preco = livro.getPreco().setScale(2);
 		resumo = livro.getResumo();
 		sumario = livro.getSumario();		
 		dataPublicacao = livro.getDataPublicacao()

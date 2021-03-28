@@ -35,5 +35,19 @@ public class CustomMockMvc {
 		} 
 
 	}
+	
+	public ResultActions get(String url) {
+		try {
+			
+			MockHttpServletRequestBuilder content = MockMvcRequestBuilders
+					.get(url)
+					.accept(MediaType.APPLICATION_JSON_VALUE);
+			
+			return mockMvc.perform(content);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} 
+		
+	}
 
 }
