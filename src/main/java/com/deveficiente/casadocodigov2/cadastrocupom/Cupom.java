@@ -8,9 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+
+import org.springframework.util.Assert;
 
 @Entity
 public class Cupom {
@@ -29,7 +32,8 @@ public class Cupom {
 
 	public Cupom(@NotBlank String codigo,
 			@Positive @NotNull BigDecimal percentualDesconto,
-			@Future @NotNull LocalDate validade) {
+			@FutureOrPresent @NotNull LocalDate validade) {
+				Assert.isTrue(validade.compareTo(LocalDate.now()) >= 0,"A validade tem que ser no futuro");
 				this.codigo = codigo;
 				this.percentualDesconto = percentualDesconto;
 				this.validade = validade;
