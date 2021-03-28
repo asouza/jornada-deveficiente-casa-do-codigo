@@ -35,9 +35,6 @@ public class FechaCompraParte1ControllerTest {
 
 	@Property(tries = 10)
 	@Label("fluxo inicial de compra")
-	//o jqkiw nào limpa contexto entre testes... Preciso indicar. 
-	//para os outros testes não faz diferença, mas aqui faz pq eu preciso garantir
-	//o preço do livro no fluxo do teste.
 	@DirtiesContext(methodMode = MethodMode.BEFORE_METHOD)
 	void teste(
 			@ForAll @AlphaChars @StringLength(min = 1, max = 50) String email,
