@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Assumptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.deveficiente.casadocodigov2.compartilhado.CustomMockMvc;
@@ -39,6 +41,7 @@ public class LivrosControllerTest {
 	
 	@Property(tries = 20)
 	@Label("fluxo de cadastro de novo livro")
+	@DirtiesContext(methodMode = MethodMode.BEFORE_METHOD)
 	public void teste(@ForAll @AlphaChars @StringLength(min = 1, max = 255) String titulo,
 			@ForAll @AlphaChars @StringLength(min = 1, max = 500) String resumo,
 			@ForAll @AlphaChars @StringLength(min = 1, max = 255) String sumario,

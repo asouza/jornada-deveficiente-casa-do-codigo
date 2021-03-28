@@ -10,18 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.web.client.match.MockRestRequestMatchers;
-import org.springframework.test.web.client.response.MockRestResponseCreators;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.deveficiente.casadocodigov2.compartilhado.CustomMockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.jqwik.spring.JqwikSpringSupport;
-
-@JqwikSpringSupport
 @SpringBootTest
 @AutoConfigureMockMvc
 public class DetalheLivroSiteControllerTest {
@@ -30,7 +24,7 @@ public class DetalheLivroSiteControllerTest {
 	private CustomMockMvc mvc;
 
 	@Test
-	@DisplayName("exibe detalhes do livro corretamente")
+	@DisplayName("exibe detalhes do livro corretamente")	
 	void teste1() throws Exception {
 		mvc.post("/autores", Map.of("nome", "alberto", "email",
 				"teste@gmail.com", "descricao", "descricao"));
