@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.deveficiente.casadocodigov2.cadastrocategoria.Categoria;
+import com.deveficiente.casadocodigov2.novoautor.Autor;
+
 @RestController
 public class LivrosController {
 	
@@ -20,7 +23,10 @@ public class LivrosController {
 	//1
 	public String cria(@RequestBody @Valid NovoLivroRequest request) {
 		//1
-		Livro novoLivro = request.toModel(manager);
+		Livro novoLivro = request.toModel(
+				id -> manager.find(Autor.class, id),
+				id -> manager.find(Categoria.class, id)
+				);
 		manager.persist(novoLivro);
 		return novoLivro.toString();
 	}

@@ -24,5 +24,7 @@ public class CategoriasController {
 		
 		return novaCategoria.toString();
 	}
+		
+	
 
 }

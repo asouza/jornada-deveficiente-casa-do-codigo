@@ -3,8 +3,8 @@ package com.deveficiente.casadocodigov2.cadastrolivro;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.function.Function;
 
-import javax.persistence.EntityManager;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 public class NovoLivroRequest {
 
 	@NotBlank
-	@UniqueValue(domainClass = Livro.class,fieldName = "titulo")
+	@UniqueValue(domainClass = Livro.class, fieldName = "titulo")
 	private String titulo;
 	@NotBlank
 	@Size(max = 500)
@@ -36,7 +36,7 @@ public class NovoLivroRequest {
 	@Min(100)
 	private int numeroPaginas;
 	@NotBlank
-	@UniqueValue(domainClass = Livro.class,fieldName = "isbn")
+	@UniqueValue(domainClass = Livro.class, fieldName = "isbn")
 	private String isbn;
 	@Future
 	@NotNull
@@ -74,13 +74,20 @@ public class NovoLivroRequest {
 		this.dataPublicacao = dataPublicacao;
 	}
 
-	public Livro toModel(EntityManager manager) {
-		@NotNull Autor autor = manager.find(Autor.class, idAutor);
-		@NotNull Categoria categoria = manager.find(Categoria.class, idCategoria);
-		
-		Assert.state(Objects.nonNull(autor),"Você esta querendo cadastrar um livro para um autor que nao existe no banco "+idAutor);
-		Assert.state(Objects.nonNull(categoria),"Você esta querendo cadastrar um livro para uma categoria que nao existe no banco "+idCategoria);
-		
+	public Livro toModel(Function<Long, Autor> carregaAutor,
+			Function<Long, Categoria> carregaCategoria) {
+		@NotNull
+		Autor autor = carregaAutor.apply(idAutor);
+		@NotNull
+		Categoria categoria = carregaCategoria.apply(idCategoria);
+
+		Assert.state(Objects.nonNull(autor),
+				"Você esta querendo cadastrar um livro para um autor que nao existe no banco "
+						+ idAutor);
+		Assert.state(Objects.nonNull(categoria),
+				"Você esta querendo cadastrar um livro para uma categoria que nao existe no banco "
+						+ idCategoria);
+
 		return new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn,
 				dataPublicacao, autor, categoria);
 	}
