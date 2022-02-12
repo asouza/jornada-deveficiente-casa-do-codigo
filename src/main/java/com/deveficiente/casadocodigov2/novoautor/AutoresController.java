@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 //3
 public class AutoresController {
-	
-	private EntityManager manager;
 
-	public AutoresController(EntityManager manager) {
+	private AutorRepository autorRepository;
+
+	public AutoresController(AutorRepository autorRepository) {
 		super();
-		this.manager = manager;
+		this.autorRepository = autorRepository;
 	}
 
 	@PostMapping(value = "/autores")
@@ -26,7 +26,7 @@ public class AutoresController {
 	public String cria(@RequestBody @Valid NovoAutorRequest request) {
 		// 1
 		Autor autor = request.toModel();
-		manager.persist(autor);
+		autorRepository.save(autor);
 		return autor.toString();
 	}
 
