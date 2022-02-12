@@ -12,21 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 //3
 public class AutoresController {
 
-	private AutorRepository autorRepository;
+	//1
+	private CadastroNovoAutor cadastroNovoAutor;
 
-	public AutoresController(AutorRepository autorRepository) {
+	public AutoresController(CadastroNovoAutor cadastroNovoAutor) {
 		super();
-		this.autorRepository = autorRepository;
+		this.cadastroNovoAutor = cadastroNovoAutor;
 	}
 
 	@PostMapping(value = "/autores")
-	@Transactional
-	// 1
-	// 2
 	public String cria(@RequestBody @Valid NovoAutorRequest request) {
-		// 1
-		Autor autor = request.toModel();
-		autorRepository.save(autor);
+		// 1		
+		Autor autor = cadastroNovoAutor.executa(request);
 		return autor.toString();
 	}
 
