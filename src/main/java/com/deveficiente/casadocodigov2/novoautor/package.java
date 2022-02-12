@@ -10,5 +10,5 @@
  * 
  * Principios:
  * 
- * 1 - Segue a The Dependency Rule - Não(quebrou recebendo o objeto de request de fora) 
+ * 1 - Segue a The Dependency Rule - Sim(invertendo a dependencias para recuperar um novo autor) 
  */

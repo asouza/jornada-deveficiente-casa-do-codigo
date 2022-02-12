@@ -16,8 +16,8 @@ public class CadastroNovoAutor {
 	}
 
 	@Transactional
-	public Autor executa(@Valid NovoAutorRequest request) {
-		Autor autor = request.toModel();
+	public Autor executa(@Valid DadosNovoAutor dados) {
+		Autor autor = dados.toModel();
 		autorRepository.save(autor);
 		return autor;
 	}

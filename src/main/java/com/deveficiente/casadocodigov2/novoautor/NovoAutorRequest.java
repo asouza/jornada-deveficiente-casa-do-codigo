@@ -1,12 +1,13 @@
 package com.deveficiente.casadocodigov2.novoautor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.deveficiente.casadocodigov2.compartilhado.UniqueValue;
 
-public class NovoAutorRequest {
+public class NovoAutorRequest implements DadosNovoAutor {
 
 	@NotBlank
 	private String nome;
