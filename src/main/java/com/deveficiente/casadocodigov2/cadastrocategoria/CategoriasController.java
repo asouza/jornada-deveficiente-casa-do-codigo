@@ -1,8 +1,5 @@
 package com.deveficiente.casadocodigov2.cadastrocategoria;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,21 +7,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+//2
 public class CategoriasController {
 
-	@PersistenceContext
-	private EntityManager manager;
+	//1
+	private CadastraNovaCategoria cadastraNovaCategoria;
+
+	public CategoriasController(CadastraNovaCategoria cadastraNovaCategoria) {
+		super();
+		this.cadastraNovaCategoria = cadastraNovaCategoria;
+	}
 
 	@PostMapping(value = "/categorias")
-	@Transactional
 	public String cria(@RequestBody @Valid NovaCategoriaRequest request) {
 
-		Categoria novaCategoria = new Categoria(request.getNome());
-		manager.persist(novaCategoria);
-		
+		//1
+		Categoria novaCategoria = cadastraNovaCategoria.executa(request);
+
 		return novaCategoria.toString();
 	}
-		
-	
 
 }
