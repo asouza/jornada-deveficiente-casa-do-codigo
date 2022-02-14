@@ -14,14 +14,18 @@ public class NovoCupomController {
 
 	@PersistenceContext
 	private EntityManager manager;
+	private CadastraNovoCupom cadastraNovoCupom;
+
+	public NovoCupomController(CadastraNovoCupom cadastraNovoCupom) {
+		super();
+		this.cadastraNovoCupom = cadastraNovoCupom;
+	}
 
 	@PostMapping(value = "/cupons")
 	@Transactional
 	public String cria(@RequestBody @Valid NovoCupomRequest request) {
 		
-		Cupom novoCupom = request.toModel();
-		manager.persist(novoCupom);
-		
+		Cupom novoCupom = cadastraNovoCupom.executa(request);
 		return novoCupom.toString();
 	}
 

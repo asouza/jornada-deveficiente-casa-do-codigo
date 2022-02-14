@@ -14,4 +14,6 @@ public interface CupomRepository
 	 * @return
 	 */
 	public Cupom getByCodigo(String codigo);
+	
+	public Cupom save(Cupom novoCupom);
 }

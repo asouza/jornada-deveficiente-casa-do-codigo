@@ -3,6 +3,7 @@ package com.deveficiente.casadocodigov2.cadastrocupom;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,7 +13,7 @@ import com.deveficiente.casadocodigov2.compartilhado.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
-public class NovoCupomRequest {
+public class NovoCupomRequest implements @Valid DadosNovoCupom {
 
 	@NotBlank
 	@UniqueValue(domainClass = Cupom.class,fieldName = "codigo")
