@@ -31,9 +31,9 @@ public class NovoLivro {
 		// 1
 		Livro novoLivro = dados.toModel(
 				// 1
-				idAutor -> buscadorDeEntidades.buscaPorId(Autor.class, idAutor),
+				idAutor -> buscadorDeEntidades.retornaPorId(Autor.class, idAutor),
 				// 1
-				idCategoria -> buscadorDeEntidades.buscaPorId(Categoria.class,
+				idCategoria -> buscadorDeEntidades.retornaPorId(Categoria.class,
 						idCategoria));
 		return livroRepository.save(novoLivro);
 	}

@@ -1,6 +1,7 @@
 package com.deveficiente.casadocodigov2.compartilhado;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -23,13 +24,18 @@ public class BuscadorDeEntidadesJPA implements BuscadorDeEntidades {
 	private EntityManager manager;
 
 	@Override
-	public <T> T buscaPorId(Class<T> klass, Long id) {
+	public <T> T retornaPorId(Class<T> klass, Long id) {
 		T entidade = manager.find(klass, id);
 		Assert.state(Objects.nonNull(entidade),
 				"A busca pela pela entidade do tipo " + klass
 						+ " retornou nulo para o id " + id
 						+ ". Isso não deveria acontecer");
 		return entidade;
+	}
+
+	@Override
+	public <T> Optional<T> buscaPorId(Class<T> klass, Long id) {
+		return Optional.ofNullable(manager.find(klass, id));
 	}
 
 }
