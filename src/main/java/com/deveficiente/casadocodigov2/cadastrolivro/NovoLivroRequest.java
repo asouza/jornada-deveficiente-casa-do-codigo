@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.function.Function;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -20,7 +21,7 @@ import com.deveficiente.casadocodigov2.novoautor.Autor;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
-public class NovoLivroRequest {
+public class NovoLivroRequest implements @Valid DadosNovoLivro {
 
 	@NotBlank
 	@UniqueValue(domainClass = Livro.class, fieldName = "titulo")

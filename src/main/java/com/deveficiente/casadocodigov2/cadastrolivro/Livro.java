@@ -2,7 +2,6 @@ package com.deveficiente.casadocodigov2.cadastrolivro;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -127,8 +126,6 @@ public class Livro {
 		} else if (!isbn.equals(other.isbn))
 			return false;
 		return true;
-	}
-
-	
+	}	
 
 }
