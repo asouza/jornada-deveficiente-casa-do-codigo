@@ -1,26 +1,24 @@
 package com.deveficiente.casadocodigov2.paisestado;
 
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CriaEstadoController {
-	
-	@Autowired
-	private EntityManager manager;
+
+	private CadastraNovoEstado cadastraNovoEstado;
+
+	public CriaEstadoController(CadastraNovoEstado cadastraNovoEstado) {
+		super();
+		this.cadastraNovoEstado = cadastraNovoEstado;
+	}
 
 	@PostMapping(value = "/estados")
-	@Transactional
-	public String cria(@RequestBody @Valid NovoEstadoRequest request) {		
-		Estado novoEstado = request.toModel(manager);		
-		manager.persist(novoEstado);
-		
+	public String cria(@RequestBody @Valid NovoEstadoRequest request) {			
+		Estado novoEstado = cadastraNovoEstado.executa(request);
 		return novoEstado.toString();
 	}
 

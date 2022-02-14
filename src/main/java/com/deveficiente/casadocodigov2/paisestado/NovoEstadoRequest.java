@@ -1,14 +1,15 @@
 package com.deveficiente.casadocodigov2.paisestado;
 
-import javax.persistence.EntityManager;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.deveficiente.casadocodigov2.cadastrolivro.BuscadorDeEntidades;
 import com.deveficiente.casadocodigov2.compartilhado.ExistsId;
 import com.deveficiente.casadocodigov2.compartilhado.Generated;
 import com.deveficiente.casadocodigov2.compartilhado.UniqueValue;
 
-public class NovoEstadoRequest {
+public class NovoEstadoRequest implements @Valid DadosNovoEstado {
 
 	@NotBlank
 	@UniqueValue(domainClass = Estado.class,fieldName = "nome")
@@ -29,8 +30,8 @@ public class NovoEstadoRequest {
 		return "NovoEstadoRequest [nome=" + nome + ", idPais=" + idPais + "]";
 	}
 
-	public Estado toModel(EntityManager manager) {
-		return new Estado(nome, manager.find(Pais.class, idPais));
+	public Estado toModel(BuscadorDeEntidades buscadorDeEntidades) {
+		return new Estado(nome, buscadorDeEntidades.retornaPorId(Pais.class, idPais));
 	}
 
 }
