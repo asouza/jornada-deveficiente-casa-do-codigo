@@ -6,40 +6,35 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.deveficiente.casadocodigov2.cadastrocategoria.CategoriaRepository;
-import com.deveficiente.casadocodigov2.novoautor.AutorRepository;
+import com.deveficiente.casadocodigov2.cadastrocategoria.Categoria;
+import com.deveficiente.casadocodigov2.novoautor.Autor;
 
 @Service
 @Validated
-//7
+//6
 public class NovoLivro {
 
-	//1
+	// 1
 	private LivroRepository livroRepository;
-	//1
-	private AutorRepository autorRepository;
-	//1
-	private CategoriaRepository categoriaRepository;
+	// 1
+	private BuscadorDeEntidades buscadorDeEntidades;
 
-	public NovoLivro(LivroRepository livroRepository,
-			AutorRepository autorRepository,
-			CategoriaRepository categoriaRepository) {
+	public NovoLivro(LivroRepository livroRepository,BuscadorDeEntidades buscadorDeEntidades) {
 		super();
 		this.livroRepository = livroRepository;
-		this.autorRepository = autorRepository;
-		this.categoriaRepository = categoriaRepository;
+		this.buscadorDeEntidades = buscadorDeEntidades;
 	}
 
 	@Transactional
-	//1
+	// 1
 	public Livro executa(@Valid DadosNovoLivro dados) {
-		//1
+		// 1
 		Livro novoLivro = dados.toModel(
-				//1
-				idAutor -> autorRepository.findById(idAutor).orElseThrow(),
-				//1
-				idCategoria -> categoriaRepository.findById(idCategoria)
-						.orElseThrow());
+				// 1
+				idAutor -> buscadorDeEntidades.buscaPorId(Autor.class, idAutor),
+				// 1
+				idCategoria -> buscadorDeEntidades.buscaPorId(Categoria.class,
+						idCategoria));
 		return livroRepository.save(novoLivro);
 	}
 
