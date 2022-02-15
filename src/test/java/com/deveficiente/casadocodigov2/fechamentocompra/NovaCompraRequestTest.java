@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import com.deveficiente.casadocodigov2.cadastrocategoria.Categoria;
 import com.deveficiente.casadocodigov2.cadastrocupom.Cupom;
 import com.deveficiente.casadocodigov2.cadastrolivro.Livro;
+import com.deveficiente.casadocodigov2.compartilhado.BuscadorDeEntidadesJPA;
 import com.deveficiente.casadocodigov2.novoautor.Autor;
 import com.deveficiente.casadocodigov2.paisestado.Estado;
 import com.deveficiente.casadocodigov2.paisestado.Pais;
@@ -61,7 +62,7 @@ public class NovaCompraRequestTest {
 
 		request.setCodigoCupom("codigo-cupom");
 		request.setIdEstado(1l);
-		Compra novaCompra = request.toModel(manager, cupomRepository);
+		Compra novaCompra = request.toModel(new BuscadorDeEntidadesJPA(manager), cupomRepository);
 
 		Assertions.assertNotNull(novaCompra);
 		Mockito.verify(manager).find(Estado.class, 1l);
@@ -73,7 +74,7 @@ public class NovaCompraRequestTest {
 	@DisplayName("cria compra sem estado e com cupom")
 	void teste2() throws Exception {
 		request.setCodigoCupom("codigo-cupom");
-		Compra novaCompra = request.toModel(manager, cupomRepository);
+		Compra novaCompra = request.toModel(new BuscadorDeEntidadesJPA(manager), cupomRepository);
 		
 		Assertions.assertNotNull(novaCompra);
 		//abre o find para garantir que tal find nao eh para ser chamado nunca
@@ -85,7 +86,7 @@ public class NovaCompraRequestTest {
 	@Test
 	@DisplayName("cria compra sem estado e sem cupom")
 	void teste3() throws Exception {
-		Compra novaCompra = request.toModel(manager, cupomRepository);
+		Compra novaCompra = request.toModel(new BuscadorDeEntidadesJPA(manager), cupomRepository);
 		
 		Assertions.assertNotNull(novaCompra);
 		

@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class FechaCompraParte1Controller {
 	
 	@Autowired
-	private EstadoPertenceAPaisValidator estadoPertenceAPaisValidator;
+	private EstadoPertenceAPaisWebValidator estadoPertenceAPaisValidator;
 	@Autowired
-	private CupomValidoValidator cupomValidoValidator;
+	private CupomValidoWebValidator cupomValidoValidator;
+	@Autowired
 	private RegistraNovaCompra registraNovaCompra;
 
 	@InitBinder

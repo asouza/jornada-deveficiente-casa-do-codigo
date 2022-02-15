@@ -20,8 +20,12 @@ import com.deveficiente.casadocodigov2.cadastrolivro.BuscadorDeEntidades;
 @Component
 public class BuscadorDeEntidadesJPA implements BuscadorDeEntidades {
 
-	@Autowired
 	private EntityManager manager;
+
+	public BuscadorDeEntidadesJPA(EntityManager manager) {
+		super();
+		this.manager = manager;
+	}
 
 	@Override
 	public <T> T retornaPorId(Class<T> klass, Long id) {

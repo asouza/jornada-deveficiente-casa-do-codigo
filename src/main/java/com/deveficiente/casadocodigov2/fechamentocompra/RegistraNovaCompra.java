@@ -27,7 +27,7 @@ public class RegistraNovaCompra {
 	}
 
 	@Transactional
-	public Compra executa(@RequestBody @Valid DadosNovaCompra dados) {
+	public Compra executa(@Valid DadosNovaCompra dados) {
 
 		Compra novaCompra = dados.toModel(buscadorDeEntidades, cupomRepository);
 		return compraRepository.save(novaCompra);

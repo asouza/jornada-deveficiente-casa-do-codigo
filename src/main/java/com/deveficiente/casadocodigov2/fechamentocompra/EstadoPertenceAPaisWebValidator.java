@@ -10,13 +10,14 @@ import com.deveficiente.casadocodigov2.paisestado.Estado;
 import com.deveficiente.casadocodigov2.paisestado.Pais;
 
 @Component
-public class EstadoPertenceAPaisValidator implements Validator {
+public class EstadoPertenceAPaisWebValidator implements Validator {
 
-	private EntityManager manager;
+	private ValidaEstadoPertenceAPais validaEstadoPertenceAPais;
 
-	public EstadoPertenceAPaisValidator(EntityManager manager) {
+	public EstadoPertenceAPaisWebValidator(
+			ValidaEstadoPertenceAPais validaEstadoPertenceAPais) {
 		super();
-		this.manager = manager;
+		this.validaEstadoPertenceAPais = validaEstadoPertenceAPais;
 	}
 
 	@Override
@@ -32,13 +33,11 @@ public class EstadoPertenceAPaisValidator implements Validator {
 
 		DadosNovaCompra request = (DadosNovaCompra) target;
 
-		if (request.temEstado()) {
-			Pais pais = manager.find(Pais.class, request.getIdPais());
-			Estado estado = manager.find(Estado.class, request.getIdEstado());
-			if (!estado.pertenceAPais(pais)) {
-				errors.rejectValue("idEstado", null, "este estado não é o do país selecionado");
-			}
-		}
+		validaEstadoPertenceAPais.valida(request, () -> {
+			//aqu sobrou acoplamento... Como eu sei que é o idEstado?
+			errors.rejectValue("idEstado", null,
+					"este estado não é o do país selecionado");
+		});
 
 	}
 

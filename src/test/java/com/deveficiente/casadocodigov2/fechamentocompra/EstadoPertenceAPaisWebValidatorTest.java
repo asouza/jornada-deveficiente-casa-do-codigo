@@ -12,10 +12,11 @@ import org.mockito.Mockito;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
+import com.deveficiente.casadocodigov2.compartilhado.BuscadorDeEntidadesJPA;
 import com.deveficiente.casadocodigov2.paisestado.Estado;
 import com.deveficiente.casadocodigov2.paisestado.Pais;
 
-public class EstadoPertenceAPaisValidatorTest {
+public class EstadoPertenceAPaisWebValidatorTest {
 	private EntityManager manager = Mockito.mock(EntityManager.class);	
 	private Pais paisPadrao = new Pais("teste");
 	private List<NovoPedidoItemRequest> itens = List.of(new NovoPedidoItemRequest(1l, 10));
@@ -34,8 +35,8 @@ public class EstadoPertenceAPaisValidatorTest {
 		
 		
 		Errors errors = new BeanPropertyBindingResult(request , "target");
-		EstadoPertenceAPaisValidator validador = new EstadoPertenceAPaisValidator(
-				manager);		
+		EstadoPertenceAPaisWebValidator validador = new EstadoPertenceAPaisWebValidator(
+				new ValidaEstadoPertenceAPais(new BuscadorDeEntidadesJPA(manager)));		
 		validador.validate(request, errors);
 		
 		Assertions.assertFalse(errors.hasErrors());
@@ -53,8 +54,8 @@ public class EstadoPertenceAPaisValidatorTest {
 		
 		
 		Errors errors = new BeanPropertyBindingResult(request , "target");
-		EstadoPertenceAPaisValidator validador = new EstadoPertenceAPaisValidator(
-				manager);		
+		EstadoPertenceAPaisWebValidator validador = new EstadoPertenceAPaisWebValidator(
+				new ValidaEstadoPertenceAPais(new BuscadorDeEntidadesJPA(manager)));		
 		validador.validate(request, errors);
 		
 		Assertions.assertTrue(errors.getAllErrors().size() == 1);
@@ -66,8 +67,8 @@ public class EstadoPertenceAPaisValidatorTest {
 	void teste3() throws Exception {				
 		
 		Errors errors = new BeanPropertyBindingResult(request , "target");
-		EstadoPertenceAPaisValidator validador = new EstadoPertenceAPaisValidator(
-				manager);		
+		EstadoPertenceAPaisWebValidator validador = new EstadoPertenceAPaisWebValidator(
+				new ValidaEstadoPertenceAPais(new BuscadorDeEntidadesJPA(manager)));		
 		validador.validate(request, errors);
 		
 		Assertions.assertFalse(errors.hasErrors());
@@ -80,8 +81,8 @@ public class EstadoPertenceAPaisValidatorTest {
 		Errors errors = new BeanPropertyBindingResult(request , "target");
 		errors.reject("codigoQualquer");
 		
-		EstadoPertenceAPaisValidator validador = new EstadoPertenceAPaisValidator(
-				manager);		
+		EstadoPertenceAPaisWebValidator validador = new EstadoPertenceAPaisWebValidator(
+				new ValidaEstadoPertenceAPais(new BuscadorDeEntidadesJPA(manager)));		
 		validador.validate(request, errors);
 		
 		Assertions.assertTrue(errors.getAllErrors().size() == 1);
