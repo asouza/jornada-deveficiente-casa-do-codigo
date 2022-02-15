@@ -59,7 +59,6 @@ public class EstadoPertenceAPaisWebValidatorTest {
 		validador.validate(request, errors);
 		
 		Assertions.assertTrue(errors.getAllErrors().size() == 1);
-		Assertions.assertTrue(errors.hasFieldErrors("idEstado"));
 	}
 	
 	@Test

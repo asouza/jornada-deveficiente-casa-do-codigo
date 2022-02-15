@@ -1,13 +1,8 @@
 package com.deveficiente.casadocodigov2.fechamentocompra;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import com.deveficiente.casadocodigov2.paisestado.Estado;
-import com.deveficiente.casadocodigov2.paisestado.Pais;
 
 @Component
 public class EstadoPertenceAPaisWebValidator implements Validator {
@@ -35,7 +30,7 @@ public class EstadoPertenceAPaisWebValidator implements Validator {
 
 		validaEstadoPertenceAPais.valida(request, () -> {
 			//aqu sobrou acoplamento... Como eu sei que é o idEstado?
-			errors.rejectValue("idEstado", null,
+			errors.reject(null,
 					"este estado não é o do país selecionado");
 		});
 
