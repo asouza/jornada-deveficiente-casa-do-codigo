@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.util.Assert;
 
+import com.deveficiente.casadocodigov2.cadastrolivro.BuscadorDeEntidades;
 import com.deveficiente.casadocodigov2.compartilhado.Generated;
 
 public class NovoPedidoRequest {
@@ -43,9 +44,9 @@ public class NovoPedidoRequest {
 		return "NovoPedidoRequest [total=" + total + ", itens=" + itens + "]";
 	}
 
-	public Function<Compra,Pedido> toModel(EntityManager manager) {
+	public Function<Compra,Pedido> toModel(BuscadorDeEntidades buscadorDeEntidades) {
 		
-		Set<ItemPedido> itensCalculados = itens.stream().map(item -> item.toModel(manager)).collect(Collectors.toSet());
+		Set<ItemPedido> itensCalculados = itens.stream().map(item -> item.toModel(buscadorDeEntidades)).collect(Collectors.toSet());
 		
 		return (compra) -> {
 			Pedido pedido = new Pedido(compra,itensCalculados);			

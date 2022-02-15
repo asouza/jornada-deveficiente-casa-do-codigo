@@ -32,7 +32,7 @@ public class CupomValidoValidator implements Validator {
 			return;
 		}
 
-		NovaCompraRequest request = (NovaCompraRequest) target;
+		DadosNovaCompra request = (DadosNovaCompra) target;
 		Optional<String> possivelCodigo = request.getCodigoCupom();
 		if (possivelCodigo.isPresent()) {
 			Cupom cupom = cupomRepository.getByCodigo(possivelCodigo.get());

@@ -30,7 +30,7 @@ public class EstadoPertenceAPaisValidator implements Validator {
 			return;
 		}
 
-		NovaCompraRequest request = (NovaCompraRequest) target;
+		DadosNovaCompra request = (DadosNovaCompra) target;
 
 		if (request.temEstado()) {
 			Pais pais = manager.find(Pais.class, request.getIdPais());

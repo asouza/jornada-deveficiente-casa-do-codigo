@@ -1,12 +1,8 @@
 package com.deveficiente.casadocodigov2.fechamentocompra;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +14,9 @@ public class FechaCompraParte1Controller {
 	
 	@Autowired
 	private EstadoPertenceAPaisValidator estadoPertenceAPaisValidator;
-	@PersistenceContext
-	private EntityManager manager;
-	@Autowired
-	private CupomRepository cupomRepository;
 	@Autowired
 	private CupomValidoValidator cupomValidoValidator;
+	private RegistraNovaCompra registraNovaCompra;
 
 	@InitBinder
 	public void init(WebDataBinder binder) {
@@ -31,11 +24,9 @@ public class FechaCompraParte1Controller {
 	}
 
 	@PostMapping(value = "/compras")
-	@Transactional
 	public String cria(@RequestBody @Valid NovaCompraRequest request) {
 		
-		Compra novaCompra = request.toModel(manager,cupomRepository);
-		manager.persist(novaCompra);
+		Compra novaCompra = registraNovaCompra.executa(request);		
 		
 		return novaCompra.toString();
 	}

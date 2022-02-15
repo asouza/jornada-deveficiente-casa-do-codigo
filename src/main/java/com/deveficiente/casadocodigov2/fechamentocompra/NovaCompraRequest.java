@@ -1,30 +1,27 @@
 package com.deveficiente.casadocodigov2.fechamentocompra;
 
-import java.lang.annotation.Documented;
 import java.util.Optional;
 import java.util.function.Function;
 
-import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.deveficiente.casadocodigov2.cadastrocupom.Cupom;
+import com.deveficiente.casadocodigov2.cadastrolivro.BuscadorDeEntidades;
 import com.deveficiente.casadocodigov2.compartilhado.Documento;
 import com.deveficiente.casadocodigov2.compartilhado.ExistsId;
 import com.deveficiente.casadocodigov2.compartilhado.Generated;
 import com.deveficiente.casadocodigov2.paisestado.Estado;
 import com.deveficiente.casadocodigov2.paisestado.Pais;
 
-public class NovaCompraRequest {
+public class NovaCompraRequest implements @Valid DadosNovaCompra {
 
 	@Email
 	@NotBlank
@@ -128,21 +125,21 @@ public class NovaCompraRequest {
 	}
 
 	//1
-	public Compra toModel(EntityManager manager,CupomRepository cupomRepository) {
+	public Compra toModel(BuscadorDeEntidades buscadorDeEntidades,CupomRepository cupomRepository) {
 		@NotNull
 		//1
-		Pais pais = manager.find(Pais.class, idPais);
+		Pais pais = buscadorDeEntidades.retornaPorId(Pais.class, idPais);
 
 		//1
 		//1
-		Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(manager);
+		Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(buscadorDeEntidades);
 		
 		//1 funcao como argumento
 		Compra compra = new Compra(email, nome, sobrenome, documento, endereco,
 				complemento, pais, telefone, cep,funcaoCriacaoPedido);
 		//1
 		if (idEstado != null) {
-			compra.setEstado(manager.find(Estado.class, idEstado));
+			compra.setEstado(buscadorDeEntidades.retornaPorId(Estado.class, idEstado));
 		}
 		
 		//1
