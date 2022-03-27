@@ -12,18 +12,19 @@ import com.deveficiente.casadocodigov2.cadastrolivro.Livro;
 @RestController
 public class DetalheLivroSiteController {
 
-	private BuscadorDeEntidades buscadorDeEntidades;
+	private BuscaPorLivroPorIdentificador buscaPorLivroPorIdentificador;
 
-	public DetalheLivroSiteController(BuscadorDeEntidades buscadorDeEntidades) {
+	public DetalheLivroSiteController(
+			BuscaPorLivroPorIdentificador buscaPorLivroPorIdentificador) {
 		super();
-		this.buscadorDeEntidades = buscadorDeEntidades;
+		this.buscaPorLivroPorIdentificador = buscaPorLivroPorIdentificador;
 	}
 
 	@GetMapping(value = "/produtos/{id}")
 	public DetalheSiteLivroResponse detalhe(@PathVariable("id") Long id) {
 
 		// 1
-		Livro livroBuscado = buscadorDeEntidades.buscaPorId(Livro.class, id)
+		Livro livroBuscado = buscaPorLivroPorIdentificador.executa(id)
 				.orElseThrow(() -> new ResponseStatusException(
 						HttpStatus.NOT_FOUND));
 
